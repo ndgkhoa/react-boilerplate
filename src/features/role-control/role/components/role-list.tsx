@@ -1,6 +1,5 @@
 import type { TableProps } from 'antd';
 import { Empty, Space, Table } from 'antd';
-import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
 
 import { ErrorPage } from '~/components/errors';
@@ -8,12 +7,12 @@ import { DateTimeFormat } from '~/constants/datetime-format';
 import { useQueryParams } from '~/hooks/use-query-params';
 import { useRoleList } from '~/features/role-control/role/hooks/queries/use-role-list';
 import type { Role, RoleSearchParams } from '~/features/role-control/role/types/Role';
-import UpdateRoleModal from '~/features/role-control/role/components/update-role-model';
+import UpdateRoleModal from '~/features/role-control/role/components/update-role-modal';
 import DeleteRoleConfirmation from '~/features/role-control/role/components/delete-role-confirmation';
+import UpdateRolePermissionsModal from '~/features/role-control/role/components/update-role-permissions-modal';
 
 const RoleList = (props: TableProps<Role> & { searchParams?: RoleSearchParams }) => {
   const { searchParams, ...tableProps } = props;
-  const navigate = useNavigate();
   const roleQuery = useRoleList(searchParams);
 
   const { queryParams, setQueryParams } = useQueryParams();
@@ -71,6 +70,16 @@ const RoleList = (props: TableProps<Role> & { searchParams?: RoleSearchParams })
       width: 200,
     },
     {
+      title: 'Quyền',
+      dataIndex: 'Id',
+      key: 'Id',
+      align: 'center' as const,
+      render: (_, record) => {
+        return <UpdateRolePermissionsModal role={record} />;
+      },
+      width: 100,
+    },
+    {
       title: 'Ngày tạo',
       dataIndex: 'CreatedDate',
       key: 'CreatedDate',
@@ -95,11 +104,7 @@ const RoleList = (props: TableProps<Role> & { searchParams?: RoleSearchParams })
       loading={roleQuery.isPending}
       dataSource={roleQuery.data?.data.Data}
       columns={columns}
-      scroll={{ x: 800 }}
-      onRow={(record) => ({
-        onClick: () => navigate(`/role-control/role/${record.Id}`),
-        style: { cursor: 'pointer' },
-      })}
+      scroll={{ x: 900 }}
       pagination={{
         hideOnSinglePage: true,
         total: roleQuery.data?.data.TotalRecord,

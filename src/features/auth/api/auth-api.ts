@@ -7,16 +7,12 @@ import type { AuthType } from '~/features/auth/hooks/use-auth-store';
 const BASE_PATH = '/user';
 
 export const authApi = {
-  loginWithEmail: (body: { UserName: string; Password: string }) => {
+  loginWithUserName: (body: { UserName: string; Password: string }) => {
     return axiosClient.post<BaseResponse<AuthType>>(`${BASE_PATH}/login`, body, {
       headers: { X_DEVICE_UDID: '00000000-0000-0000-0000-000000000000' },
     });
   },
   loginWithGoogle: async () => {
-    await delayPromise();
-    return Promise.resolve({ message: 'Success' });
-  },
-  loginWithMicrosoft: async () => {
     await delayPromise();
     return Promise.resolve({ message: 'Success' });
   },

@@ -7,8 +7,9 @@ import { DateTimeFormat } from '~/constants/datetime-format';
 import { useQueryParams } from '~/hooks/use-query-params';
 import { useUserList } from '~/features/role-control/user/hooks/queries/use-user-list';
 import type { User, UserSearchParams } from '~/features/role-control/user/types/User';
-import UpdateUserModal from '~/features/role-control/user/components/update-user-model';
+import UpdateUserModal from '~/features/role-control/user/components/update-user-modal';
 import DeleteUserConfirmation from '~/features/role-control/user/components/delete-user-confirmation';
+import UpdateUserRolesModal from '~/features/role-control/user/components/update-user-roles-modal';
 
 const UserList = (props: TableProps<User> & { searchParams?: UserSearchParams }) => {
   const { searchParams, ...tableProps } = props;
@@ -81,6 +82,16 @@ const UserList = (props: TableProps<User> & { searchParams?: UserSearchParams })
       width: 200,
     },
     {
+      title: 'Vai trò',
+      dataIndex: 'Id',
+      key: 'Id',
+      align: 'center' as const,
+      render: (_, record) => {
+        return <UpdateUserRolesModal user={record} />;
+      },
+      width: 100,
+    },
+    {
       title: 'Ngày tạo',
       dataIndex: 'CreatedDate',
       key: 'CreatedDate',
@@ -105,7 +116,7 @@ const UserList = (props: TableProps<User> & { searchParams?: UserSearchParams })
       loading={userQuery.isPending}
       dataSource={userQuery.data?.data.Data}
       columns={columns}
-      scroll={{ x: 1200 }}
+      scroll={{ x: 1300 }}
       pagination={{
         hideOnSinglePage: true,
         total: userQuery.data?.data.TotalRecord,

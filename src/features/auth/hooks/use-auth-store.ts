@@ -16,7 +16,9 @@ export type AuthDataType = AuthType & {
 
 export type AuthStoreType = {
   auth: AuthDataType | null;
+  perms: unknown[] | null;
   setAuth: (auth: AuthDataType | null) => void;
+  setPerms: (perms: unknown[] | null) => void;
   logout: () => void;
 };
 
@@ -25,11 +27,15 @@ export const useAuthStore = create<AuthStoreType>()(
     persist(
       (set) => ({
         auth: null,
+        perms: null,
         setAuth: (auth) => {
           set({ auth });
         },
+        setPerms: (perms) => {
+          set({ perms });
+        },
         logout: () => {
-          set((state) => ({ ...state, auth: null }));
+          set((state) => ({ ...state, auth: null, perms: null }));
         },
       }),
       {

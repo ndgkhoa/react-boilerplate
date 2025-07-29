@@ -41,7 +41,7 @@ const ModalWindow = (props: {
   const titleContent = (
     <div className="flex items-center justify-between gap-2 rounded-t-md p-2">
       <span className="text-lg">{modalProps.title}</span>
-      <Button type="text" icon={<CloseOutlined style={{ color: 'white' }} />} onClick={hideModal} />
+      <Button type="text" icon={<CloseOutlined style={{ color: 'black' }} />} onClick={hideModal} />
     </div>
   );
 

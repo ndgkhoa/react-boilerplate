@@ -4,9 +4,11 @@ import { axiosClient } from '~/config/axios';
 import { env } from '~/config/env';
 import type {
   CreateRoleBody,
+  CreateRolePermissionsBody,
   Role,
   RoleSearchParams,
   UpdateRoleBody,
+  UpdateRolePermissionsBody,
 } from '~/features/role-control/role/types/Role';
 import type { BaseResponse } from '~/types';
 
@@ -28,5 +30,23 @@ export const roleApi = {
   },
   delete: (id: Role['Id']) => {
     return axiosClient.delete(`${BASE_PATH}/delete/${id}`);
+  },
+  getPermissions: (roleId: Role['Id']) => {
+    return axiosClient.get(`role-permissions/get-role-permissions/${roleId}`);
+  },
+  createPermissions(
+    { roleId, body }: { roleId: string; body: CreateRolePermissionsBody },
+    config?: AxiosRequestConfig
+  ) {
+    return axiosClient.post(`role-permissions/create-role-permissions/${roleId}`, body, config);
+  },
+  updatePermissions: (body: UpdateRolePermissionsBody, config?: AxiosRequestConfig) => {
+    return axiosClient.patch(`role-permissions/update-role-permissions`, body, config);
+  },
+  deletePermissions: (roleIds: string[], config?: AxiosRequestConfig) => {
+    return axiosClient.delete(`role-permissions/delete-role-permissions`, {
+      data: roleIds,
+      ...config,
+    });
   },
 };

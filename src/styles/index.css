@@ -6,6 +6,7 @@
 @theme {
   --font-beVietNamPro: 'Be Vietnam Pro', 'sans-serif';
   --font-lexend: 'Lexend', 'sans-serif';
+  --color-primary: #f5f5f5;
 }
 
 @layer base {

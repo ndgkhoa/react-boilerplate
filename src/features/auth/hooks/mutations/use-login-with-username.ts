@@ -7,18 +7,18 @@ import { authKeys } from '~/features/auth/constants/auth-keys';
 import type { AuthType } from '~/features/auth/hooks/use-auth-store';
 import type { BaseResponse } from '~/types';
 
-type Variables = Parameters<typeof authApi.loginWithEmail>[0];
+type Variables = Parameters<typeof authApi.loginWithUserName>[0];
 
-queryClient.setMutationDefaults(authKeys.loginWithEmailOrPhone(), {
-  mutationFn: (variables: Variables) => authApi.loginWithEmail(variables),
+queryClient.setMutationDefaults(authKeys.loginWithUserName(), {
+  mutationFn: (variables: Variables) => authApi.loginWithUserName(variables),
 });
 
-export const useLoginWithEmail = () => {
+export const useLoginWithUserName = () => {
   const mutation = useMutation<AxiosResponse<BaseResponse<AuthType>>, Error, Variables>({
-    mutationKey: authKeys.loginWithEmailOrPhone(),
+    mutationKey: authKeys.loginWithUserName(),
   });
 
-  const isMutating = useIsMutating({ mutationKey: authKeys.loginWithEmailOrPhone() });
+  const isMutating = useIsMutating({ mutationKey: authKeys.loginWithUserName() });
 
   const isPending = mutation.isPending || Boolean(isMutating);
   return { ...mutation, isPending };

@@ -4,7 +4,11 @@ import { Navigate } from 'react-router-dom';
 import { useAuthStore } from '~/features/auth/hooks/use-auth-store';
 import { AuthProviders } from '~/features/auth/types/AuthProviders';
 
-export const ProtectedRoute = ({ children }: PropsWithChildren) => {
+interface Props extends PropsWithChildren {
+  allowed?: string;
+}
+
+export const ProtectedRoute = ({ children, allowed }: Props) => {
   const authState = useAuthStore((state) => state.auth);
   const { isAuthenticated, provider } = authState || {};
 

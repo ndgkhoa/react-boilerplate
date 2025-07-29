@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { GoogleIcon } from '~/components/icons';
 import { useLoginWithGoogle } from '~/features/auth/hooks/mutations/use-login-with-google';
-import { useLoginWithEmail } from '~/features/auth/hooks/mutations/use-login-with-email';
+import { useLoginWithUserName } from '~/features/auth/hooks/mutations/use-login-with-username';
 import { useAuthStore } from '~/features/auth/hooks/use-auth-store';
 import { AuthProviders } from '~/features/auth/types/AuthProviders';
 
@@ -16,12 +16,13 @@ export const LoginForm = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
 
-  const { mutate: loginWithEmail, isPending: isLoginWithEmailPending } = useLoginWithEmail();
+  const { mutate: loginWithUserName, isPending: isLoginWithUserNamePending } =
+    useLoginWithUserName();
   const { mutate: loginWithGoogle, isPending: isLoginWithGooglePending } = useLoginWithGoogle();
   const { setAuth } = useAuthStore();
 
   const onLogin = (values: LoginFormType) => {
-    loginWithEmail(values, {
+    loginWithUserName(values, {
       onSuccess: (response) => {
         setAuth({
           ...response.data.Data,
@@ -36,7 +37,7 @@ export const LoginForm = () => {
     });
   };
 
-  const disabled = isLoginWithEmailPending || isLoginWithGooglePending;
+  const disabled = isLoginWithUserNamePending || isLoginWithGooglePending;
 
   return (
     <>
@@ -70,7 +71,7 @@ export const LoginForm = () => {
           <Input.Password size="large" />
         </Form.Item>
         <Button
-          loading={isLoginWithEmailPending}
+          loading={isLoginWithUserNamePending}
           block
           className="mt-2"
           htmlType="submit"

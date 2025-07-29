@@ -10,7 +10,7 @@ import type {
   Permission,
   PermissionSearchParams,
 } from '~/features/role-control/permission/types/Permission';
-import UpdatePermissionModal from '~/features/role-control/permission/components/update-permission-model';
+import UpdatePermissionModal from '~/features/role-control/permission/components/update-permission-modal';
 import DeletePermissionConfirmation from '~/features/role-control/permission/components/delete-permission-confirmation';
 
 const PermissionList = (

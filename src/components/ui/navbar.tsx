@@ -26,10 +26,10 @@ export const Navbar = memo(() => {
   ];
 
   return (
-    <Layout.Header className="flex border-l border-white !px-4">
+    <Layout.Header className="!bg-primary flex !px-4">
       <Flex className="!w-full" align="center" justify="end">
         <Dropdown menu={{ items }} trigger={['click']}>
-          <Avatar className="!bg-[#87d068]" icon={<UserOutlined />} />
+          <Avatar className="!bg-[#1677FF]" icon={<UserOutlined />} />
         </Dropdown>
       </Flex>
     </Layout.Header>

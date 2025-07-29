@@ -16,7 +16,7 @@ const SignIn = () => {
             <div className="flex h-12 justify-center">
               <img src={viagsLogoFull} alt="Viags Logo Full" className="h-full" />
             </div>
-            <h1 className="mt-8 mb-12 text-center text-2xl">Quản lý hệ thống</h1>
+            <h1 className="mt-8 mb-12 text-center text-2xl">Quản lý người dùng và phân quyền</h1>
             <div className="mx-auto max-w-lg">
               <LoginForm />
             </div>

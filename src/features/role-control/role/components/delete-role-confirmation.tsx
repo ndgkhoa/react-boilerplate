@@ -6,7 +6,7 @@ import { useDeleteRole } from '~/features/role-control/role/hooks/mutations/use-
 import type { Role } from '~/features/role-control/role/types/Role';
 import { ServiceMessage } from '~/utils/service-message';
 
-const DeletePermissionConfirmation = ({
+const DeleteRoleConfirmation = ({
   roleId,
   onDeleteSuccess,
 }: {
@@ -48,4 +48,4 @@ const DeletePermissionConfirmation = ({
   );
 };
 
-export default DeletePermissionConfirmation;
+export default DeleteRoleConfirmation;
