@@ -17,4 +17,13 @@ export type UpdateUserBody = Partial<CreateUserBody> & {
   Id: User['Id'];
 };
 
+export interface UserRole {
+  Id: string;
+  RoleId: string;
+  RoleName: string;
+  Description: string;
+}
+
+export type CreateUserRolesBody = string[];
+
 export type UserSearchParams = Pick<BaseSearchParams, 'pageSize' | 'pageIndex' | 'keyword'>;

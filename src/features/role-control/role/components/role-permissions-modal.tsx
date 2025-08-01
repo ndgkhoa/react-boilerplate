@@ -13,7 +13,7 @@ export interface RolePermissionsTabRef {
   reset: () => void;
 }
 
-const UpdateRolePermissionsModal = ({ role }: { role?: Role }) => {
+const RolePermissionsModal = ({ role }: { role?: Role }) => {
   if (!role) return null;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -29,8 +29,10 @@ const UpdateRolePermissionsModal = ({ role }: { role?: Role }) => {
     if (activeTabKey === '1') {
       updateTabRef.current?.submit();
     } else {
-      createTabRef.current?.submit();
-      setActiveTabKey('1');
+      const success = createTabRef.current?.submit();
+      if (success) {
+        setActiveTabKey('1');
+      }
     }
   };
 
@@ -88,4 +90,4 @@ const UpdateRolePermissionsModal = ({ role }: { role?: Role }) => {
   );
 };
 
-export default UpdateRolePermissionsModal;
+export default RolePermissionsModal;

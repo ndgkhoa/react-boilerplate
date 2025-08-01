@@ -22,6 +22,11 @@ export function setup() {
         window.location.href = '/auth/sign-in';
       }
 
+      if (status === 403) {
+        await message.error('Bạn không có quyền truy cập vào tài nguyên này.');
+        window.location.href = '/';
+      }
+
       return Promise.reject(error);
     }
   );

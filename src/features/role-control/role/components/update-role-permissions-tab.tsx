@@ -11,7 +11,7 @@ import type {
   RolePermission,
   UpdateRolePermissionsBody,
 } from '~/features/role-control/role/types/Role';
-import type { RolePermissionsTabRef } from '~/features/role-control/role/components/update-role-permissions-modal';
+import type { RolePermissionsTabRef } from '~/features/role-control/role/components/role-permissions-modal';
 import DeleteRolePermissionsConfirmation from '~/features/role-control/role/components/delete-role-permissions-confirmation';
 
 interface Props {
@@ -50,7 +50,7 @@ const UpdateRolePermissionsTab = forwardRef<RolePermissionsTabRef, Props>((props
     },
   });
 
-  const updatePermission = (
+  const handleCheck = (
     index: number,
     key: keyof Pick<RolePermission, 'C' | 'R' | 'U' | 'D'>,
     value: boolean
@@ -81,10 +81,7 @@ const UpdateRolePermissionsTab = forwardRef<RolePermissionsTabRef, Props>((props
   const renderCheckbox =
     (key: keyof Pick<RolePermission, 'C' | 'R' | 'U' | 'D'>) =>
     (_: any, record: RolePermission, index: number) => (
-      <Checkbox
-        checked={record[key]}
-        onChange={(e) => updatePermission(index, key, e.target.checked)}
-      />
+      <Checkbox checked={record[key]} onChange={(e) => handleCheck(index, key, e.target.checked)} />
     );
 
   const columns: TableProps<RolePermission>['columns'] = [

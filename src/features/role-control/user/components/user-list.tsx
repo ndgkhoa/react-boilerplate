@@ -9,7 +9,7 @@ import { useUserList } from '~/features/role-control/user/hooks/queries/use-user
 import type { User, UserSearchParams } from '~/features/role-control/user/types/User';
 import UpdateUserModal from '~/features/role-control/user/components/update-user-modal';
 import DeleteUserConfirmation from '~/features/role-control/user/components/delete-user-confirmation';
-import UpdateUserRolesModal from '~/features/role-control/user/components/update-user-roles-modal';
+import UserRolesModal from '~/features/role-control/user/components/user-roles-modal';
 
 const UserList = (props: TableProps<User> & { searchParams?: UserSearchParams }) => {
   const { searchParams, ...tableProps } = props;
@@ -87,7 +87,7 @@ const UserList = (props: TableProps<User> & { searchParams?: UserSearchParams })
       key: 'Id',
       align: 'center' as const,
       render: (_, record) => {
-        return <UpdateUserRolesModal user={record} />;
+        return <UserRolesModal user={record} />;
       },
       width: 100,
     },

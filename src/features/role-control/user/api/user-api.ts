@@ -2,7 +2,11 @@ import type { AxiosRequestConfig } from 'axios';
 
 import { axiosClient } from '~/config/axios';
 import { env } from '~/config/env';
-import type { User, UserSearchParams } from '~/features/role-control/user/types/User';
+import type {
+  CreateUserRolesBody,
+  User,
+  UserSearchParams,
+} from '~/features/role-control/user/types/User';
 import type { BaseResponse } from '~/types';
 
 const BASE_PATH = `${env.VITE_BASE_API_URL}/user`;
@@ -34,5 +38,20 @@ export const userApi = {
   },
   delete: (id: User['Id']) => {
     return axiosClient.delete(`${BASE_PATH}/delete/${id}`);
+  },
+  getRoles: (userId: User['Id']) => {
+    return axiosClient.get(`user-roles/get-user-roles/${userId}`);
+  },
+  createRoles(
+    { userId, body }: { userId: string; body: CreateUserRolesBody },
+    config?: AxiosRequestConfig
+  ) {
+    return axiosClient.post(`user-roles/create-user-roles/${userId}`, body, config);
+  },
+  deleteRoles: (roleIds: string[], config?: AxiosRequestConfig) => {
+    return axiosClient.delete(`user-roles/delete-user-roles`, {
+      data: roleIds,
+      ...config,
+    });
   },
 };

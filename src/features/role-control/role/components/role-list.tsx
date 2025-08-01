@@ -9,7 +9,7 @@ import { useRoleList } from '~/features/role-control/role/hooks/queries/use-role
 import type { Role, RoleSearchParams } from '~/features/role-control/role/types/Role';
 import UpdateRoleModal from '~/features/role-control/role/components/update-role-modal';
 import DeleteRoleConfirmation from '~/features/role-control/role/components/delete-role-confirmation';
-import UpdateRolePermissionsModal from '~/features/role-control/role/components/update-role-permissions-modal';
+import RolePermissionsModal from '~/features/role-control/role/components/role-permissions-modal';
 
 const RoleList = (props: TableProps<Role> & { searchParams?: RoleSearchParams }) => {
   const { searchParams, ...tableProps } = props;
@@ -75,7 +75,7 @@ const RoleList = (props: TableProps<Role> & { searchParams?: RoleSearchParams })
       key: 'Id',
       align: 'center' as const,
       render: (_, record) => {
-        return <UpdateRolePermissionsModal role={record} />;
+        return <RolePermissionsModal role={record} />;
       },
       width: 100,
     },

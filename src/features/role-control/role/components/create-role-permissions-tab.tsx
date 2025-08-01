@@ -7,7 +7,7 @@ import { ServiceMessage } from '~/utils';
 import { queryClient } from '~/config/query-client';
 import { roleApi } from '~/features/role-control/role/api/role-api';
 import { permissionApi } from '~/features/role-control/permission/api/permission-api';
-import type { RolePermissionsTabRef } from '~/features/role-control/role/components/update-role-permissions-modal';
+import type { RolePermissionsTabRef } from '~/features/role-control/role/components/role-permissions-modal';
 import type {
   CreateRolePermissionsBody,
   Role,
@@ -34,7 +34,7 @@ const CreateRolePermissionsTab = forwardRef<RolePermissionsTabRef, Props>((props
   const [selectedPermissions, setSelectedPermissions] = useState<DataType[]>([]);
   const [initialPermissions, setInitialPermissions] = useState<DataType[]>([]);
 
-  const { data: rolePermissionData, isPending: isRolePermissionPending } = useQuery({
+  const { data: rolePermissionsData, isPending: isRolePermissionsPending } = useQuery({
     queryKey: ['role', 'permissions', props.roleId],
     queryFn: () => roleApi.getPermissions(props.roleId!),
     enabled: !!props.roleId,
@@ -45,7 +45,7 @@ const CreateRolePermissionsTab = forwardRef<RolePermissionsTabRef, Props>((props
     queryFn: () => permissionApi.getAll(),
   });
 
-  const rolePermissions: RolePermission[] = rolePermissionData?.data.Data.Permissions ?? [];
+  const rolePermissions: RolePermission[] = rolePermissionsData?.data.Data.Permissions ?? [];
   const allPermissions: Permission[] = allPermissionsData?.data.Data ?? [];
 
   const filteredPermissions: DataType[] = useMemo(() => {
@@ -114,11 +114,12 @@ const CreateRolePermissionsTab = forwardRef<RolePermissionsTabRef, Props>((props
       }));
 
     if (payload.length === 0) {
-      message.warning('Vui lòng chọn ít nhất một quyền');
-      return;
+      message.warning('Vui lòng chọn ít nhất một quyền.');
+      return false;
     }
 
     mutation.mutate(payload);
+    return true;
   };
 
   useImperativeHandle(ref, () => ({
@@ -151,7 +152,7 @@ const CreateRolePermissionsTab = forwardRef<RolePermissionsTabRef, Props>((props
       columns={columns}
       dataSource={selectedPermissions}
       pagination={false}
-      loading={isRolePermissionPending || isAllPermissionsPending}
+      loading={isRolePermissionsPending || isAllPermissionsPending}
     />
   );
 });
