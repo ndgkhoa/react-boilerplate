@@ -1,10 +1,11 @@
-import { Divider, Input, Button, Form, Flex, message } from 'antd';
+import { useTranslation } from 'react-i18next';
+
+import { Divider, Input, Button, Form, Flex, App } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
 import { GoogleIcon } from '~/components/icons';
-import { useLoginWithGoogle } from '~/features/auth/hooks/mutations/use-login-with-google';
 import { useLoginWithUserName } from '~/features/auth/hooks/mutations/use-login-with-username';
-import { useAuthStore } from '~/features/auth/hooks/use-auth-store';
+import { useAuthStore } from '~/stores/auth';
 import { AuthProviders } from '~/features/auth/types/AuthProviders';
 
 type LoginFormType = {
@@ -13,12 +14,13 @@ type LoginFormType = {
 };
 
 export const LoginForm = () => {
+  const { t } = useTranslation();
+  const { message } = App.useApp();
   const [form] = Form.useForm();
   const navigate = useNavigate();
 
   const { mutate: loginWithUserName, isPending: isLoginWithUserNamePending } =
     useLoginWithUserName();
-  const { mutate: loginWithGoogle, isPending: isLoginWithGooglePending } = useLoginWithGoogle();
   const { setAuth } = useAuthStore();
 
   const onLogin = (values: LoginFormType) => {
@@ -32,43 +34,42 @@ export const LoginForm = () => {
         navigate('/');
       },
       onError: () => {
-        message.error('Tài khoản hoặc mật khẩu không đúng!');
+        message.error(t('Validation.Mismatch'));
       },
     });
   };
 
-  const disabled = isLoginWithUserNamePending || isLoginWithGooglePending;
+  const disabled = isLoginWithUserNamePending;
 
   return (
     <>
       <Flex wrap align="center" gap="small">
         <Button
           disabled={disabled}
-          loading={isLoginWithGooglePending}
           className="flex-1"
           size="large"
           icon={<GoogleIcon className="h-6 w-6 max-w-6 min-w-6" />}
           type="default"
-          onClick={() => loginWithGoogle()}
+          onClick={() => message.info(t('App.FeatureComingSoon'))}
         >
-          <span className="font-light">Đăng nhập với Google</span>
+          <span className="font-light"> {t('Login.Google')}</span>
         </Button>
       </Flex>
-      <Divider plain>Hoặc</Divider>
+      <Divider plain>{t('Login.Or')}</Divider>
       <Form disabled={disabled} form={form} size="large" layout="vertical" onFinish={onLogin}>
         <Form.Item<LoginFormType>
           name="UserName"
-          label="Tên đăng nhập"
-          rules={[{ required: true, message: 'Không được bỏ trống trường này' }]}
+          label={t('Login.UserName')}
+          rules={[{ required: true, message: t('Validation.Required') }]}
         >
-          <Input size="large" />
+          <Input autoComplete="username" size="large" />
         </Form.Item>
         <Form.Item<LoginFormType>
           name="Password"
-          label="Mật khẩu"
-          rules={[{ required: true, message: 'Không được bỏ trống trường này' }]}
+          label={t('Login.Password')}
+          rules={[{ required: true, message: t('Validation.Required') }]}
         >
-          <Input.Password size="large" />
+          <Input.Password autoComplete="current-password" size="large" />
         </Form.Item>
         <Button
           loading={isLoginWithUserNamePending}
@@ -78,9 +79,19 @@ export const LoginForm = () => {
           size="large"
           type="primary"
         >
-          Đăng nhập
+          {t('Common.Login')}
         </Button>
       </Form>
+      {/* <div className="mt-8 flex justify-center">
+        <Select
+          defaultValue="en"
+          onChange={(value) => setLanguage(value)}
+          options={[
+            { value: 'vi', label: t('Common.Vi') },
+            { value: 'en', label: t('Common.En') },
+          ]}
+        />
+      </div> */}
     </>
   );
 };

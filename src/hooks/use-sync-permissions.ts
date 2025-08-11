@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import type { AxiosResponse } from 'axios';
 
-import { useAuthStore } from '~/features/auth/hooks/use-auth-store';
+import { useAuthStore } from '~/stores/auth';
 import { type UseQueryResult } from '@tanstack/react-query';
-import type { User } from '~/features/role-control/user/types/User';
+import type { User } from '~/features/admin/users/types/User';
 
 export const useSyncPermissions = (
   infoMine: UseQueryResult<

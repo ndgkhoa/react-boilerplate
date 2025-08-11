@@ -1,10 +1,9 @@
 import { axiosClient } from '~/config/axios';
 import type { BaseResponse } from '~/types';
-import { delayPromise } from '~/utils';
 
-import type { AuthType } from '~/features/auth/hooks/use-auth-store';
+import type { AuthType } from '~/stores/auth';
 
-const BASE_PATH = '/user';
+const BASE_PATH = '/users';
 
 export const authApi = {
   loginWithUserName: (body: { UserName: string; Password: string }) => {
@@ -13,15 +12,9 @@ export const authApi = {
     });
   },
   loginWithGoogle: async () => {
-    await delayPromise();
-    return Promise.resolve({ message: 'Success' });
-  },
-  verifyCode: async (code: string) => {
-    await delayPromise();
-    return Promise.resolve({ message: 'Success', data: code });
-  },
-  resendCode: async (data: string) => {
-    await delayPromise();
-    return Promise.resolve({ message: 'Success', data });
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    return {
+      Message: 'Đăng nhập bằng Google thành công!',
+    };
   },
 };

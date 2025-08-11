@@ -3,13 +3,14 @@ import { Layout } from 'antd';
 import { Outlet } from 'react-router-dom';
 
 import { FullPageFallback } from '~/components/fallbacks';
-import { Sidebar, Navbar } from '~/components/ui';
-import { useAuthStore } from '~/features/auth/hooks/use-auth-store';
+import { Sidebar, Navbar, Footer } from '~/components/ui';
+import { useAuthStore } from '~/stores/auth';
 import { useSyncAccessToken } from '~/hooks/use-sync-access-token';
 
 const LayoutContent = memo(() => {
   return (
-    <Layout.Content className="h-[calc(100vh)] border-t border-gray-200">
+    <Layout.Content className="h-[calc(100vh)] border-t border-gray-200 px-4">
+      {/* <Breadcrumb className="!py-4" items={[{ title: 'User' }, { title: 'Bill' }]} /> */}
       <Suspense fallback={<FullPageFallback />}>
         <Outlet />
       </Suspense>
@@ -30,6 +31,7 @@ export const MainLayout = () => {
       <Layout>
         <Navbar />
         <LayoutContent />
+        <Footer />
       </Layout>
     </Layout>
   );

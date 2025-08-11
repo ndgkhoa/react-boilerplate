@@ -1,12 +1,15 @@
+import { memo } from 'react';
+import { useTranslation } from 'react-i18next';
 import type { PopconfirmProps } from 'antd';
 import { Popconfirm as AntPopconfirm } from 'antd';
-import { memo } from 'react';
 
 export const Popconfirm = memo((props: PopconfirmProps) => {
+  const { t } = useTranslation();
+
   const popconfirmProps: PopconfirmProps = {
     destroyOnHidden: true,
-    cancelText: 'Hủy',
-    okText: 'Xác nhận',
+    cancelText: t('Common.Cancel'),
+    okText: t('Common.Confirm'),
     ...props,
   };
 

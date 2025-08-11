@@ -29,7 +29,7 @@ export const Container = (props: Props) => {
   const tooltipTitle = typeof showBack === 'boolean' ? 'Trở về' : showBack?.tootipTitle;
 
   return (
-    <div className="relative h-full overflow-auto px-4">
+    <div className="relative h-full overflow-auto">
       {showContainerHeader && (
         <Flex
           align="center"
@@ -43,7 +43,7 @@ export const Container = (props: Props) => {
                 <Button type="text" icon={<Undo2 />} onClick={onBack} />
               </Tooltip>
             )}
-            <h1 className="m-0 text-2xl font-medium text-gray-800">{title}</h1>
+            <h1 className="m-0 text-2xl font-medium">{title}</h1>
           </Flex>
           {extraRight}
         </Flex>

@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 
-import { useAuthStore } from '~/features/auth/hooks/use-auth-store';
+import { useAuthStore } from '~/stores/auth';
 import { FullscreenFallback } from '~/components/fallbacks';
 
 export const AuthLayout = () => {

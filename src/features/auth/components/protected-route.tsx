@@ -1,7 +1,7 @@
 import { type PropsWithChildren } from 'react';
 import { Navigate } from 'react-router-dom';
 
-import { useAuthStore } from '~/features/auth/hooks/use-auth-store';
+import { useAuthStore } from '~/stores/auth';
 import { AuthProviders } from '~/features/auth/types/AuthProviders';
 
 interface Props extends PropsWithChildren {

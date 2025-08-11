@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 import { axiosClient } from '~/config/axios';
 import { AuthProviders } from '~/features/auth/types/AuthProviders';
-import type { AuthDataType } from '~/features/auth/hooks/use-auth-store';
+import type { AuthDataType } from '~/stores/auth';
 
 export const useSyncAccessToken = (authState: AuthDataType | null) => {
   useEffect(() => {

@@ -4,7 +4,7 @@ import type { AxiosResponse } from 'axios';
 import { queryClient } from '~/config/query-client';
 import { authApi } from '~/features/auth/api/auth-api';
 import { authKeys } from '~/features/auth/constants/auth-keys';
-import type { AuthType } from '~/features/auth/hooks/use-auth-store';
+import type { AuthType } from '~/stores/auth';
 import type { BaseResponse } from '~/types';
 
 type Variables = Parameters<typeof authApi.loginWithUserName>[0];

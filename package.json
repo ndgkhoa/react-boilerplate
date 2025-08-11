@@ -6,8 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "format": "prettier --write .",
     "lint": "eslint .",
     "preview": "vite preview",
+    "lang:gen": "bun scripts/lang-generate.ts",
     "prepare": "husky"
   },
   "dependencies": {
@@ -20,7 +22,9 @@
     "axios": "^1.9.0",
     "clsx": "^2.1.1",
     "envalid": "^8.0.0",
+    "i18next": "^25.3.3",
     "immer": "^10.1.1",
+    "js-yaml": "^4.1.0",
     "lodash": "^4.17.21",
     "lucide-react": "^0.510.0",
     "query-string": "^9.1.2",
@@ -28,6 +32,7 @@
     "react-dom": "^18.3.1",
     "react-error-boundary": "^6.0.0",
     "react-helmet-async": "^2.0.5",
+    "react-i18next": "^15.6.1",
     "react-router-dom": "^7.6.0",
     "tailwind-merge": "^3.3.0",
     "tailwindcss": "^4.1.6",

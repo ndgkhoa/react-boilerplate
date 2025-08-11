@@ -1,27 +1,15 @@
 import { memo, useState } from 'react';
-import { HomeOutlined, TeamOutlined } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
+import { HomeOutlined, SafetyCertificateOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Menu, Layout, Flex } from 'antd';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-import viagsLogoFull2 from '/images/viags-logo-full-2.png';
+import viagsLogoFull from '/images/viags-logo-full-2.png';
 import viagsLogo from '/images/viags-logo.png';
 
-const items: MenuProps['items'] = [
-  { key: '/', icon: <HomeOutlined />, label: 'Trang chủ' },
-  {
-    key: '/role-control',
-    icon: <TeamOutlined />,
-    label: 'Phân quyền',
-    children: [
-      { key: '/role-control/permission', label: 'Quyền' },
-      { key: '/role-control/role', label: 'Vai trò' },
-      { key: '/role-control/user', label: 'Người dùng' },
-    ],
-  },
-];
-
 export const Sidebar = memo(() => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [collapsed, setCollapsed] = useState(false);
@@ -32,12 +20,26 @@ export const Sidebar = memo(() => {
 
   const onClick: MenuProps['onClick'] = (e) => navigate(e.key);
 
+  const items: MenuProps['items'] = [
+    { key: '/', icon: <HomeOutlined />, label: t('Sidebar.Home') },
+    {
+      key: '/admin',
+      icon: <SafetyCertificateOutlined />,
+      label: t('Sidebar.Admin'),
+      children: [
+        { key: '/admin/permissions', label: t('Fields.Permissions') },
+        { key: '/admin/roles', label: t('Fields.Roles') },
+        { key: '/admin/users', label: t('Fields.Users') },
+      ],
+    },
+  ];
+
   const renderedLogo = (
     <Link to="/" className="flex h-16 items-center justify-center">
       {collapsed ? (
         <img src={viagsLogo} className="h-10" />
       ) : (
-        <img src={viagsLogoFull2} className="h-11" />
+        <img src={viagsLogoFull} className="h-11" />
       )}
     </Link>
   );
