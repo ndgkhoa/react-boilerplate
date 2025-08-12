@@ -2,7 +2,7 @@ import { Suspense, type PropsWithChildren } from 'react';
 import { QueryErrorResetBoundary, QueryClientProvider } from '@tanstack/react-query';
 import { ErrorBoundary } from 'react-error-boundary';
 import { HelmetProvider } from 'react-helmet-async';
-import { ConfigProvider, App, theme as antdTheme } from 'antd';
+import { ConfigProvider, App } from 'antd';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { QueryParamProvider } from 'use-query-params';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
@@ -10,12 +10,11 @@ import { ReactRouter6Adapter } from 'use-query-params/adapters/react-router-6';
 import queryString from 'query-string';
 
 import { queryClient } from '~/config/query-client';
-import { usePreferencesStore } from './stores/preferences';
 import { FullscreenFallback, ErrorBoundaryFallback } from '~/components/fallbacks';
-// import { theme } from '~/styles/theme';
+import { theme } from '~/styles/theme';
 
 const AppProviders = ({ children }: PropsWithChildren) => {
-  const { theme } = usePreferencesStore();
+  // const { theme } = usePreferencesStore();
 
   return (
     <Suspense fallback={<FullscreenFallback />}>
@@ -25,10 +24,11 @@ const AppProviders = ({ children }: PropsWithChildren) => {
             <HelmetProvider>
               <QueryClientProvider client={queryClient}>
                 <ConfigProvider
-                  theme={{
-                    algorithm:
-                      theme === 'dark' ? antdTheme.darkAlgorithm : antdTheme.defaultAlgorithm,
-                  }}
+                  // theme={{
+                  //   algorithm:
+                  //     theme === 'dark' ? AntTheme.darkAlgorithm : AntTheme.defaultAlgorithm,
+                  // }}
+                  theme={theme}
                 >
                   <App>
                     <Router>

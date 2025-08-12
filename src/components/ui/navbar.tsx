@@ -1,8 +1,8 @@
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { LogoutOutlined, MoonOutlined, SunOutlined, UserOutlined } from '@ant-design/icons';
+import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
-import { Button, Dropdown, Flex, Layout, Select, theme as antdTheme } from 'antd';
+import { Button, Dropdown, Flex, Layout, Select, theme as AntTheme } from 'antd';
 
 import { useAuthStore } from '~/stores/auth';
 import { usePreferencesStore } from '~/stores/preferences';
@@ -11,10 +11,10 @@ import { AuthProviders } from '~/features/auth/types/AuthProviders';
 export const Navbar = memo(() => {
   const { t } = useTranslation();
   const { auth: authState, logout } = useAuthStore();
-  const { theme, setTheme, setLanguage } = usePreferencesStore();
+  const { setLanguage } = usePreferencesStore();
   const {
     token: { colorBgContainer },
-  } = antdTheme.useToken();
+  } = AntTheme.useToken();
 
   const onLogoutClick = () => {
     if (authState?.provider === AuthProviders.Local) {
@@ -42,11 +42,11 @@ export const Navbar = memo(() => {
             { value: 'en', label: t('Common.En') },
           ]}
         />
-        <Button
+        {/* <Button
           shape="circle"
           icon={theme === 'light' ? <MoonOutlined /> : <SunOutlined />}
           onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-        />
+        /> */}
         <Dropdown menu={{ items }} trigger={['hover']}>
           <Button shape="circle" icon={<UserOutlined />} />
         </Dropdown>

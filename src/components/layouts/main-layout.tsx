@@ -3,14 +3,14 @@ import { Layout } from 'antd';
 import { Outlet } from 'react-router-dom';
 
 import { FullPageFallback } from '~/components/fallbacks';
-import { Sidebar, Navbar, Footer } from '~/components/ui';
+import { Sidebar, Navbar, Footer, Breadcrumb } from '~/components/ui';
 import { useAuthStore } from '~/stores/auth';
 import { useSyncAccessToken } from '~/hooks/use-sync-access-token';
 
 const LayoutContent = memo(() => {
   return (
     <Layout.Content className="h-[calc(100vh)] px-4">
-      {/* <Breadcrumb style={{ margin: '16px 0' }} items={[{ title: 'User' }, { title: 'Bill' }]} /> */}
+      <Breadcrumb />
       <Suspense fallback={<FullPageFallback />}>
         <Outlet />
       </Suspense>
