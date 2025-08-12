@@ -9,7 +9,7 @@ import type {
   RoleSearchParams,
   UpdateRoleBody,
   UpdateRolePermissionsBody,
-} from '~/features/admin/role/types/Role';
+} from '~/features/admin/roles/types/Role';
 import type { BaseResponse } from '~/types';
 
 const BASE_PATH = `${env.VITE_BASE_API_URL}/roles`;

@@ -9,8 +9,8 @@ import { useSyncAccessToken } from '~/hooks/use-sync-access-token';
 
 const LayoutContent = memo(() => {
   return (
-    <Layout.Content className="h-[calc(100vh)] border-t border-gray-200 px-4">
-      {/* <Breadcrumb className="!py-4" items={[{ title: 'User' }, { title: 'Bill' }]} /> */}
+    <Layout.Content className="h-[calc(100vh)] px-4">
+      {/* <Breadcrumb style={{ margin: '16px 0' }} items={[{ title: 'User' }, { title: 'Bill' }]} /> */}
       <Suspense fallback={<FullPageFallback />}>
         <Outlet />
       </Suspense>

@@ -6,6 +6,8 @@ import i18n from '~/i18n';
 type PreferencesType = {
   language: string;
   setLanguage: (lang: string) => void;
+  theme: string;
+  setTheme: (theme: string) => void;
 };
 
 export const usePreferencesStore = create<PreferencesType>()(
@@ -16,6 +18,10 @@ export const usePreferencesStore = create<PreferencesType>()(
         setLanguage: (lang) => {
           i18n.changeLanguage(lang);
           set({ language: lang });
+        },
+        theme: 'light',
+        setTheme: (theme) => {
+          set({ theme });
         },
       }),
       {

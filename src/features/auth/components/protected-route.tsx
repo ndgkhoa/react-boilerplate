@@ -8,7 +8,7 @@ interface Props extends PropsWithChildren {
   allowed?: string;
 }
 
-export const ProtectedRoute = ({ children, allowed }: Props) => {
+export const ProtectedRoute = ({ children }: Props) => {
   const authState = useAuthStore((state) => state.auth);
   const { isAuthenticated, provider } = authState || {};
 
