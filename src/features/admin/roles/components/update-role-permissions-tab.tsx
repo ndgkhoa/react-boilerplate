@@ -51,13 +51,13 @@ const UpdateRolePermissionsTab = forwardRef<RolePermissionsTabRef, Props>((props
   });
 
   const handleCheck = (
-    index: number,
+    id: string,
     key: keyof Pick<RolePermission, 'C' | 'R' | 'U' | 'D'>,
     value: boolean
   ) => {
-    const updated = [...permissions];
-    updated[index][key] = value;
-    setPermissions(updated);
+    setPermissions((prev) =>
+      prev.map((item) => (item.Id === id ? { ...item, [key]: value } : item))
+    );
   };
 
   const handleSubmit = () => {
@@ -80,8 +80,11 @@ const UpdateRolePermissionsTab = forwardRef<RolePermissionsTabRef, Props>((props
 
   const renderCheckbox =
     (key: keyof Pick<RolePermission, 'C' | 'R' | 'U' | 'D'>) =>
-    (_: any, record: RolePermission, index: number) => (
-      <Checkbox checked={record[key]} onChange={(e) => handleCheck(index, key, e.target.checked)} />
+    (_: any, record: RolePermission) => (
+      <Checkbox
+        checked={record[key]}
+        onChange={(e) => handleCheck(record.Id, key, e.target.checked)}
+      />
     );
 
   const columns: TableProps<RolePermission>['columns'] = [
@@ -109,7 +112,9 @@ const UpdateRolePermissionsTab = forwardRef<RolePermissionsTabRef, Props>((props
       columns={columns}
       loading={rolePermissionsQuery.isPending}
       dataSource={permissions}
-      pagination={false}
+      pagination={{
+        pageSize: 5,
+      }}
     />
   );
 });

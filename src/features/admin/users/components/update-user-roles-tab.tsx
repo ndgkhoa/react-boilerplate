@@ -53,7 +53,9 @@ const UpdateUserRolesTab = forwardRef<UserRolesTabRef, Props>((props, ref) => {
       columns={columns}
       loading={userRolesQuery.isPending}
       dataSource={userRolesQuery.data?.data.Data}
-      pagination={false}
+      pagination={{
+        pageSize: 5,
+      }}
     />
   );
 });

@@ -36,7 +36,7 @@ const CreateUserRolesTab = forwardRef<UserRolesTabRef, Props>((props, ref) => {
 
   const { data: allRolesData, isPending: isAllRolesPending } = useQuery({
     queryKey: ['roles', 'all'],
-    queryFn: () => roleApi.getAll(),
+    queryFn: () => roleApi.getAll({ pageSize: 100 }),
   });
 
   const userRoles: UserRole[] = userRolesData?.data.Data ?? [];
@@ -115,8 +115,10 @@ const CreateUserRolesTab = forwardRef<UserRolesTabRef, Props>((props, ref) => {
       rowSelection={{ type: 'checkbox', ...rowSelection }}
       columns={columns}
       dataSource={filteredRoles}
-      pagination={false}
       loading={isUserRolesPending || isAllRolesPending}
+      pagination={{
+        pageSize: 5,
+      }}
     />
   );
 });

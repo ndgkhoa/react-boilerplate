@@ -10,30 +10,28 @@ export const Breadcrumb = () => {
 
   if (pathnames.length === 0) return null;
 
-  return (
-    <AntBreadcrumb style={{ margin: '16px 0' }}>
-      <AntBreadcrumb.Item>
+  const items = [
+    {
+      title: (
         <Link to="/">
           <HomeOutlined />
         </Link>
-      </AntBreadcrumb.Item>
+      ),
+    },
+    ...pathnames.map((value, index) => {
+      let to = `/${pathnames.slice(0, index + 1).join('/')}`;
+      const special = specialSegments.find((s) => s.name === value);
+      if (special) {
+        to = '/';
+      }
 
-      {pathnames.map((value, index) => {
-        let to = `/${pathnames.slice(0, index + 1).join('/')}`;
+      const label = special ? special.icon : value;
 
-        const special = specialSegments.find((s) => s.name === value);
-        if (special) {
-          to = '/';
-        }
+      return {
+        title: index === pathnames.length - 1 ? label : <Link to={to}>{label}</Link>,
+      };
+    }),
+  ];
 
-        const label = special ? special.icon : value;
-
-        return (
-          <AntBreadcrumb.Item key={to}>
-            {index === pathnames.length - 1 ? label : <Link to={to}>{label}</Link>}
-          </AntBreadcrumb.Item>
-        );
-      })}
-    </AntBreadcrumb>
-  );
+  return <AntBreadcrumb style={{ margin: '16px 0' }} items={items} />;
 };

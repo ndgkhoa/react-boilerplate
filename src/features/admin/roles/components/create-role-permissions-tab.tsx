@@ -44,7 +44,7 @@ const CreateRolePermissionsTab = forwardRef<RolePermissionsTabRef, Props>((props
 
   const { data: allPermissionsData, isPending: isAllPermissionsPending } = useQuery({
     queryKey: ['permissions', 'all'],
-    queryFn: () => permissionApi.getAll(),
+    queryFn: () => permissionApi.getAll({ pageSize: 100 }),
   });
 
   const rolePermissions: RolePermission[] = rolePermissionsData?.data.Data.Permissions ?? [];
@@ -153,8 +153,10 @@ const CreateRolePermissionsTab = forwardRef<RolePermissionsTabRef, Props>((props
       rowKey="PermissionId"
       columns={columns}
       dataSource={selectedPermissions}
-      pagination={false}
       loading={isRolePermissionsPending || isAllPermissionsPending}
+      pagination={{
+        pageSize: 5,
+      }}
     />
   );
 });
